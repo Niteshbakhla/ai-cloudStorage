@@ -33,7 +33,7 @@
 
 ## 📸 Screenshots / Demo
 ![HOME SCREENSHOT](./frontend/assets/drive-box.png)
-![LOGIN PAGE](./frontend/assets/login.png)
+
 ---
 
 ## ⚙️ Setup Instructions
