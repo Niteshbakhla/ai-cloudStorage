@@ -32,9 +32,7 @@
 ---
 
 ## 📸 Screenshots / Demo
-
-> _You can insert screenshots or a link to a demo video here to showcase the app._
-
+![HOME SCREENSHOT](./frontend/assets/drive-box.png)
 ---
 
 ## ⚙️ Setup Instructions
