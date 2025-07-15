@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Trash2, Download, Search, Plus, FolderOpen, Eye, EllipsisVertical } from 'lucide-react';
 import { AnimatePresence, motion } from "framer-motion";
 import Error from '../components/Error';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import Modal from '../components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
