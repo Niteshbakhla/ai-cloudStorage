@@ -1,5 +1,5 @@
 
-import {  Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import AppRoutes from "./router/AppRoutes"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -11,8 +11,12 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchMe = async () => {
-      const { data } = await axiosInstance.get("/auth/me");
-      dispatch(setIsLogin(data.success));
+      try {
+        const { data } = await axiosInstance.get("/auth/me");
+        dispatch(setIsLogin(data.success));
+      } catch (error) {
+        console.error("auth me error", error)
+      }
 
     }
     fetchMe()
