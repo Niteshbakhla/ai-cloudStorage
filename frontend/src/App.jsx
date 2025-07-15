@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setIsLogin } from "./redux/slices/userLogin"
 import axiosInstance from "./axios/axios"
+import axios from "axios"
 
 const App = () => {
   const { isLogin } = useSelector(state => state.isLogin);
@@ -12,7 +13,7 @@ const App = () => {
   useEffect(() => {
     const fetchMe = async () => {
       try {
-        const { data } = await axiosInstance.get("/auth/me");
+        const { data } = await axios.get("https://ai-cloudstorage.onrender.com/api/v1/auth/me");
         dispatch(setIsLogin(data.success));
       } catch (error) {
         console.error("auth me error", error)

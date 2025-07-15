@@ -6,6 +6,7 @@ import axiosInstance from '../axios/axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import GoogleAuthBtn from '../components/GoogleAuthBtn';
+import axios from 'axios';
 
 export default function AuthPage() {
             const [isLogin, setIsLogin] = useState(true);
@@ -26,7 +27,7 @@ export default function AuthPage() {
 
             const handleAuth = async () => {
                         try {
-                                    const { data } = await axiosInstance.post(`/auth${isLogin ? "/login" : "/register"}`, formData);
+                                    const { data } = await axios.post(`https://ai-cloudstorage.onrender.com/api/v1/auth${isLogin ? "/login" : "/register"}`, formData);
                                     toast.success(data.message)
                                     if (isLogin) navigate("/")
                                     else setIsLogin(!isLogin)
