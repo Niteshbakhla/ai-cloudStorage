@@ -32,10 +32,10 @@ export default function AuthPage() {
                                     else setIsLogin(!isLogin)
                                     setFormData({ email: "", password: "", name: "" })
                         } catch (error) {
+                                    setFormData({ email: "", password: "", name: "" })
                                     toast.error(error.response?.data.message || "Something went wrong")
                                     console.error("auth error", error.message);
                                     console.log(error)
-                                    setFormData({ email: "", password: "", name: "" })
                         }
             }
 
