@@ -7,18 +7,21 @@ import cors from "cors";
 import "./config/passport.js";
 import passport from "passport";
 import session from "express-session";
+import config from "./config/config.js";
 
 
 
 export const app = express();
 
-app.use(cors({
-            origin: "http://localhost:5173",
+const corsOptions = {
+            origin: config.NODE_ENV === "production" ? config.CLIENT_URL : "http://localhost:5173",
             credentials: true
-}));
+}
+
+app.use(cors(corsOptions));
 
 app.use(session({
-            secret: "sgdosahd03496293468743096",
+            secret: config.SECRET,
             resave: false,
             saveUninitialized: false,
             cookie: {
@@ -37,4 +40,5 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/drive", fileRoutes);
 
 app.use(errorHandler);
+
 

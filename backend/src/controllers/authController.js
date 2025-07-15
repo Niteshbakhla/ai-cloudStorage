@@ -41,7 +41,11 @@ export const login = asyncHandler(async (req, res) => {
                         throw new CustomError("Invalid credentials", 400);
 
             const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, config.JWT_SECRET, { expiresIn: "7d" });
-            res.cookie("token", token)
+            res.cookie("token", token, {
+                        secure: config.NODE_ENV === "production",
+                        httpOnly: true,
+                        sameSite: config.NODE_ENV === "production" ? "none" : "lax"
+            })
 
             res.status(200).json({ message: "login successfully", user: { id: user._id, name: user.name, email: user.email } });
 });
