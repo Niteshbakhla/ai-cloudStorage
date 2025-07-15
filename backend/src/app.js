@@ -14,7 +14,7 @@ import MongoStore from "connect-mongo";
 export const app = express();
 
 const corsOptions = {
-            origin: config.NODE_ENV === "production" ? config.CLIENT_URL : "http://localhost:5173",
+            origin: "https://ai-cloud-storage-six.vercel.app",
             credentials: true
 }
 
