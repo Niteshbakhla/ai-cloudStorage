@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     const fetchMe = async () => {
       try {
-        const { data } = await axios.get("https://ai-cloudstorage.onrender.com/api/v1/auth/me");
+        const { data } = await axios.get("https://ai-cloudstorage.onrender.com/api/v1/auth/me", { withCredentials: true });
         dispatch(setIsLogin(data.success));
       } catch (error) {
         console.error("auth me error", error)

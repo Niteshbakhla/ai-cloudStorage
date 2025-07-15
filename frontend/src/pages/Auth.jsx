@@ -27,7 +27,7 @@ export default function AuthPage() {
 
             const handleAuth = async () => {
                         try {
-                                    const { data } = await axios.post(`https://ai-cloudstorage.onrender.com/api/v1/auth${isLogin ? "/login" : "/register"}`, formData);
+                                    const { data } = await axios.post(`https://ai-cloudstorage.onrender.com/api/v1/auth${isLogin ? "/login" : "/register"}`, formData, { withCredentials: true });
                                     toast.success(data.message)
                                     if (isLogin) navigate("/")
                                     else setIsLogin(!isLogin)
