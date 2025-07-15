@@ -10,12 +10,11 @@ import axiosInstance from "./axios/axios"
 const App = () => {
   const { isLogin } = useSelector(state => state.isLogin);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   useEffect(() => {
     const fetchMe = async () => {
       const { data } = await axiosInstance.get("/auth/me");
       dispatch(setIsLogin(data.success));
-      console.log(data.success)
+
     }
     fetchMe()
   }, [isLogin])

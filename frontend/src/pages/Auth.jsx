@@ -28,22 +28,16 @@ export default function AuthPage() {
                         try {
                                     const { data } = await axiosInstance.post(`/auth${isLogin ? "/login" : "/register"}`, formData);
                                     toast.success(data.message)
-                                    navigate("/")
+                                    if (isLogin) navigate("/")
+                                    else setIsLogin(!isLogin)
                                     setFormData({ email: "", password: "", name: "" })
                         } catch (error) {
-                                    toast.error(error.response.data.message)
+                                    toast.error(error.response.data.message || "Something went wrong")
                                     console.error("auth error", error.message);
                                     console.log(error)
                         }
             }
 
-            const handleSubmit = () => {
-                        if (isLogin) {
-                                    console.log('Login attempt:', { email: formData.email, password: formData.password });
-                        } else {
-                                    console.log('Register attempt:', formData);
-                        }
-            };
 
             const toggleMode = () => {
                         setIsLogin(!isLogin);
@@ -142,9 +136,6 @@ export default function AuthPage() {
                                                                                                 </button>
                                                                                     </div>
                                                                         </div>
-
-                                                                        {/* Confirm Password field (only for register) */}
-
 
                                                                         {/* Forgot password link (only for login) */}
                                                                         {isLogin && (

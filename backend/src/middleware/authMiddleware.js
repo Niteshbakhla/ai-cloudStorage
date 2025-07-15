@@ -9,7 +9,6 @@ export const isAuthenticated = asyncHandler(async (req, res, next) => {
             if (!token) {
                         throw new CustomError("Unauthorized", 401);
             }
-
             const decoded = jwt.verify(token, config.JWT_SECRET);
             req.user = decoded;
             next();

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import API_ENDPOINTS from "../../axios/ApiConfig";
 import axiosInstance from "../../axios/axios";
 
@@ -7,7 +6,6 @@ import axiosInstance from "../../axios/axios";
 export const fetchFiles = createAsyncThunk('files/fetchFiles', async (_, { rejectWithValue }) => {
             try {
                         const { data } = await axiosInstance.get(API_ENDPOINTS.files)
-                      
                         return data.files;
             } catch (error) {
                         const errorMsg = error?.response?.data?.message || error.message;

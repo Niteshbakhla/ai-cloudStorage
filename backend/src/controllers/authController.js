@@ -8,7 +8,6 @@ import asyncHandler from "../middleware/asyncHandler.js";
 
 // Register
 export const register = asyncHandler(async (req, res) => {
-
             const { name, email, password } = req.body;
             if (!name || !email || !password) throw new CustomError("Fields are required", 400);
 
