@@ -1,7 +1,6 @@
 
-import { BrowserRouter, Navigate, useNavigate } from "react-router-dom"
+import {  Navigate } from "react-router-dom"
 import AppRoutes from "./router/AppRoutes"
-import { AnimatePresence } from "framer-motion"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setIsLogin } from "./redux/slices/userLogin"

@@ -1,4 +1,3 @@
-import Login from "../pages/Login";
 import NoPageFound from "../pages/NoPageFound";
 import Signup from "../pages/Signup";
 import MainLayout from "../layouts/MainLayout";
@@ -6,7 +5,7 @@ import GoogleDriveClone from "../pages/Clone";
 import AuthPage from "../pages/Auth";
 import ProtectedRoutes from "../protectedRoutes/ProtectedRoutes";
 import AuthSuccess from "../pages/AuthSuccess";
-import FilesDisplay, { FileCard } from "../pages/Check";
+import { FileCard } from "../pages/Check";
 
 
 const routeConfig = [
