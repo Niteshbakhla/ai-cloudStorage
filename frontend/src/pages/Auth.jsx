@@ -27,9 +27,9 @@ export default function AuthPage() {
 
             const handleAuth = async () => {
                         try {
-                                    const { data } = await axios.post(`https://ai-cloudstorage.onrender.com/api/v1/auth${isLogin ? "/login" : "/register"}`, formData, { withCredentials: true });
+                                    const { data } = await axiosInstance.post(`/auth${isLogin ? "/login" : "/register"}`, formData);
                                     toast.success(data.message)
-                                    if (isLogin) navigate("/")
+                                    if (isLogin) navigate("/");
                                     else setIsLogin(!isLogin)
                                     setFormData({ email: "", password: "", name: "" })
                         } catch (error) {

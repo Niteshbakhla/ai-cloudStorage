@@ -11,7 +11,6 @@ import config from "./config/config.js";
 import MongoStore from "connect-mongo";
 
 
-
 export const app = express();
 
 const corsOptions = {
@@ -35,10 +34,10 @@ app.use(session({
             }
 }));
 
+app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
-app.use(express.json());
 
 
 app.use("/api/v1/auth", authRoutes);
