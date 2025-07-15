@@ -27,8 +27,7 @@ export default function AuthPage() {
 
             const handleAuth = async () => {
                         try {
-                                    // const { data } = await axiosInstance.post(`/auth${isLogin ? "/login" : "/register"}`, formData);
-                                    const { data } = await axiosInstance.post("/auth/register", formData);
+                                    const { data } = await axiosInstance.post(`/auth${isLogin ? "/login" : "/register"}`, formData);
                                     toast.success(data.message)
                                     if (isLogin) navigate("/");
                                     else setIsLogin(!isLogin)
