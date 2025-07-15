@@ -28,10 +28,10 @@ app.use(session({
                         secure: false,
                         httpOnly: true
             }
-}))
+}));
 
 app.use(passport.initialize());
-app.use(passport.session())
+app.use(passport.session());
 app.use(cookieParser());
 app.use(express.json());
 
