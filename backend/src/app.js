@@ -8,13 +8,13 @@ import "./config/passport.js";
 import passport from "passport";
 import session from "express-session";
 import config from "./config/config.js";
-import MongoStore from "connect-mongo";
+
 
 
 export const app = express();
-
+// https://ai-cloud-storage-six.vercel.app
 const corsOptions = {
-            origin: "https://ai-cloud-storage-six.vercel.app",
+            origin: config.CLIENT_URL,
             credentials: true
 }
 
@@ -24,9 +24,9 @@ app.use(session({
             secret: config.SECRET,
             resave: false,
             saveUninitialized: false,
-            store: MongoStore.create({
-                        mongoUrl: config.MONGO_CLOUD_URL
-            }),
+            // store: MongoStore.create({
+            //             mongoUrl: config.MONGO_CLOUD_URL
+            // }),
             cookie: {
                         secure: config.NODE_ENV === "production",
                         httpOnly: true,
