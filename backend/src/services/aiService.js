@@ -10,7 +10,7 @@ import config from "../config/config.js";
 class AIService {
             constructor() {
                         this.genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
-                        this.model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                        this.model = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
                         this.processingQueue = [];
                         this.isProcessing = false;
             }
