@@ -5,7 +5,6 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setIsLogin } from "./redux/slices/userLogin"
 import axiosInstance from "./axios/axios"
-import axios from "axios"
 
 const App = () => {
   const { isLogin } = useSelector(state => state.isLogin);
