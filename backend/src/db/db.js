@@ -5,7 +5,7 @@ import config from "../config/config.js";
 
 const connectDB = async () => {
             try {
-                        const connect = await mongoose.connect(config.MONGO_CLOUD_URL);
+                        const connect = await mongoose.connect(config.MONGO_URL);
                         if (connect.connection.readyState === 1) {
                                     console.log("✅ Database is connected!");
                         } else {
