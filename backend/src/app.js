@@ -12,7 +12,7 @@ import config from "./config/config.js";
 
 
 export const app = express();
-// https://ai-cloud-storage-six.vercel.app
+
 const corsOptions = {
             origin: config.CLIENT_URL,
             credentials: true
@@ -20,12 +20,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+
 app.use(session({
             secret: config.SECRET,
             resave: false,
             saveUninitialized: false,
             // store: MongoStore.create({
-            //             mongoUrl: config.MONGO_CLOUD_URL
+            //             mongoUrl: config.MONGO_URL
             // }),
             cookie: {
                         secure: config.NODE_ENV === "production",
