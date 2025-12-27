@@ -8,6 +8,7 @@ import "./config/passport.js";
 import passport from "passport";
 import session from "express-session";
 import config from "./config/config.js";
+import MongoStore from "connect-mongo"
 
 
 
@@ -25,9 +26,9 @@ app.use(session({
             secret: config.SECRET,
             resave: false,
             saveUninitialized: false,
-            // store: MongoStore.create({
-            //             mongoUrl: config.MONGO_URL
-            // }),
+            store: MongoStore.create({
+                        mongoUrl: config.MONGO_URL
+            }),
             cookie: {
                         secure: config.NODE_ENV === "production",
                         httpOnly: true,
