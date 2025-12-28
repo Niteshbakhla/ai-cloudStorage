@@ -1,5 +1,4 @@
 import NoPageFound from "../pages/NoPageFound";
-import Signup from "../pages/Signup";
 import MainLayout from "../layouts/MainLayout";
 import GoogleDriveClone from "../pages/Clone";
 import AuthPage from "../pages/Auth";
@@ -15,7 +14,6 @@ const routeConfig = [
                         children: [
                                     { index: true, element: <ProtectedRoutes> <GoogleDriveClone /> </ProtectedRoutes> },
                                     { path: "login", element: <AuthPage /> }, // 👈 this handles route "/"
-                                    { path: 'signup', element: <Signup /> },
                                     { path: '*', element: <NoPageFound /> },
                                     { path: "/auth-success", elemen: <AuthSuccess /> },
                                     { path: "/check", element: <FileCard /> }
