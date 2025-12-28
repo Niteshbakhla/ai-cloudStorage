@@ -5,7 +5,7 @@ import config from "../config/config.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 
 
-
+const isProduction = config.NODE_ENV === "production";
 // Register
 export const register = asyncHandler(async (req, res) => {
             const { name, email, password } = req.body;
@@ -79,6 +79,10 @@ export const googleCallback = asyncHandler(async (req, res) => {
                         },
                         config.JWT_SECRET
             );
-            res.cookie("token", token);
+            res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: isProduction,
+                        sameSite: isProduction ? "none" : "lax"
+            });
             res.redirect(config.CLIENT_URL);
 });
