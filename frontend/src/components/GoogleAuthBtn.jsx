@@ -1,6 +1,4 @@
 import { useState } from "react";
-import axiosInstance from "../axios/axios";
-import axios from "axios";
 
 const GoogleAuthBtn = () => {
             const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +7,7 @@ const GoogleAuthBtn = () => {
                         setIsLoading(true);
                         try {
 
-                                 window.location.href="http://localhost:5000/api/v1/auth/google"
+                                    window.location.href = `${import.meta.env.VITE_API_URL}/api/v1/auth/google`
 
                         } catch (error) {
                                     console.log("googleAuth error:", error)
