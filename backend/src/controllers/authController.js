@@ -80,5 +80,5 @@ export const googleCallback = asyncHandler(async (req, res) => {
                         config.JWT_SECRET
             );
             res.cookie("token", token);
-            res.redirect(`http://localhost:5173/`);
+            res.redirect(config.CLIENT_URL);
 });
