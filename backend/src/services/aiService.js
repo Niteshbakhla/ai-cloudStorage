@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
-// import pdfParse from "pdf-parse";
+
 import mammoth from "mammoth";
 import File from "../models/fileSchema.js"
 import config from "../config/config.js";
@@ -17,6 +17,7 @@ class AIService {
 
             // Extract text from different file types
             async extractTextFromFile(filePath, mimetype) {
+                        return console.log(filePath)
                         try {
                                     if (mimetype.includes('text/plain')) {
                                                 return fs.readFileSync(filePath, 'utf8');
@@ -130,9 +131,10 @@ class AIService {
 
             // Add file to processing queue
             async queueFileForProcessing(fileId) {
+
                         if (this.processingQueue.includes(fileId)) return;
                         this.processingQueue.push(fileId);
-
+                        console.log(fileId)
                         // Update status
                         await File.findByIdAndUpdate(fileId, {
                                     aiProcessingStatus: 'pending'

@@ -7,30 +7,36 @@ import AIService from "../services/aiService.js";
 
 export const uploadFile = asyncHandler(async (req, res, next) => {
             const files = req.files;
-            // return console.log(files);
             const userId = req.user.id;
-            if (!files || files.length === 0) throw new CustomError("File required", 400);
+
+            if (!files || files.length === 0) {
+                        throw new CustomError("File required", 400);
+            }
 
             const savedFiles = await Promise.all(
-                        files.map((async (file) => {
+                        files.map(async (file) => {
                                     const newFile = new File({
-                                                filename: file.filename,
+                                                filename: file.filename || file.public_id,   // Cloudinary public ID
                                                 originalName: file.originalname,
                                                 fileType: file.mimetype,
                                                 size: file.size,
-                                                filePath: file.path,
-                                                owner: userId
-                                    })
+                                                filePath: file.path,                        // Cloudinary URL
+                                                owner: userId,
+                                    });
 
                                     await newFile.save();
                                     await AIService.queueFileForProcessing(newFile._id);
+
                                     return newFile;
-                        }))
-            )
+                        })
+            );
 
-
-            res.status(201).json({ message: "File uploaded successfully! AI analysis will be ready in 1-2 minutes.", file: savedFiles });
+            res.status(201).json({
+                        message: "File uploaded successfully! AI analysis will be ready in 1-2 minutes.",
+                        file: savedFiles,
+            });
 });
+
 
 export const getSingleFile = asyncHandler(async (req, res) => {
             const userId = req.user.id;
