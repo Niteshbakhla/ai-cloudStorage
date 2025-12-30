@@ -4,6 +4,7 @@ import fs from "fs";
 import mammoth from "mammoth";
 import File from "../models/fileSchema.js"
 import config from "../config/config.js";
+import { downloadFileAsBuffer, getFileAsBase64 } from "../utils/file.js";
 
 
 
@@ -17,18 +18,17 @@ class AIService {
 
             // Extract text from different file types
             async extractTextFromFile(filePath, mimetype) {
-                        return console.log(filePath)
                         try {
+                                    const buffer = await downloadFileAsBuffer(filePath)
                                     if (mimetype.includes('text/plain')) {
-                                                return fs.readFileSync(filePath, 'utf8');
+                                                return buffer.toString("utf8");
                                     }
                                     else if (mimetype.includes('application/pdf')) {
-                                                const dataBuffer = fs.readFileSync(filePath);
-                                                const pdfData = await pdfParse(dataBuffer);
+                                                const pdfData = await pdfParse(buffer);
                                                 return pdfData.text;
                                     }
                                     else if (mimetype.includes('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
-                                                const result = await mammoth.extractRawText({ path: filePath });
+                                                const result = await mammoth.extractRawText({ buffer });
                                                 return result.value;
                                     }
                                     return null;
@@ -40,14 +40,14 @@ class AIService {
 
             // Analyze file with AI
             async analyzeFile(filePath, mimetype, originalName) {
+                        console.log("2 analyze file:-", filePath)
                         try {
                                     let prompt = '';
                                     let parts = [];
 
                                     if (mimetype.includes('image/')) {
                                                 // For images
-                                                const imageData = fs.readFileSync(filePath);
-                                                const base64Image = imageData.toString('base64');
+                                                const base64Image = await getFileAsBase64(filePath);
 
                                                 parts = [
                                                             {
@@ -134,7 +134,7 @@ class AIService {
 
                         if (this.processingQueue.includes(fileId)) return;
                         this.processingQueue.push(fileId);
-                        console.log(fileId)
+                        console.log("1 Que File For processing:-", fileId)
                         // Update status
                         await File.findByIdAndUpdate(fileId, {
                                     aiProcessingStatus: 'pending'

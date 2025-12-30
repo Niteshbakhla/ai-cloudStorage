@@ -16,14 +16,13 @@ export const uploadFile = asyncHandler(async (req, res, next) => {
             const savedFiles = await Promise.all(
                         files.map(async (file) => {
                                     const newFile = new File({
-                                                filename: file.filename || file.public_id,   // Cloudinary public ID
+                                                filename: file.filename || file.public_id,
                                                 originalName: file.originalname,
                                                 fileType: file.mimetype,
                                                 size: file.size,
-                                                filePath: file.path,                        // Cloudinary URL
+                                                filePath: file.path,
                                                 owner: userId,
                                     });
-
                                     await newFile.save();
                                     await AIService.queueFileForProcessing(newFile._id);
 
