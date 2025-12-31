@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { User, Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff, ArrowLeft,  Loader2 } from 'lucide-react';
 import { motion } from "framer-motion";
 
 import axiosInstance from '../axios/axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import GoogleAuthBtn from '../components/GoogleAuthBtn';
-import axios from 'axios';
+
+import { useDispatch } from 'react-redux';
+import { setIsLogin } from '../redux/slices/userLogin';
 
 export default function AuthPage() {
-            const [isLogin, setIsLogin] = useState(true);
+            const [isLogin, setIsLogins] = useState(true);
+            const [loader, setLoader] = useState(false);
             const [showPassword, setShowPassword] = useState(false);
             const navigate = useNavigate();
             const [formData, setFormData] = useState({
@@ -17,6 +20,7 @@ export default function AuthPage() {
                         email: '',
                         password: '',
             });
+            const dispatch = useDispatch();
 
             const handleInputChange = (e) => {
                         setFormData({
@@ -26,23 +30,27 @@ export default function AuthPage() {
             };
 
             const handleAuth = async () => {
+                        setLoader(true)
                         try {
                                     const { data } = await axiosInstance.post(`/auth${isLogin ? "/login" : "/register"}`, formData);
+                                    dispatch(setIsLogin(data.success))
                                     toast.success(data.message)
                                     if (isLogin) navigate("/");
-                                    else setIsLogin(!isLogin)
+                                    else setIsLogins(!isLogin)
                                     setFormData({ email: "", password: "", name: "" })
+                                    setLoader(false)
                         } catch (error) {
                                     setFormData({ email: "", password: "", name: "" })
                                     toast.error(error.response?.data.message || "Something went wrong")
                                     console.error("auth error", error.message);
                                     console.log(error)
+                                    setLoader(false)
                         }
             }
 
 
             const toggleMode = () => {
-                        setIsLogin(!isLogin);
+                        setIsLogins(!isLogin);
                         setFormData({ name: '', email: '', password: '' });
                         setShowPassword(false);
             };
@@ -152,9 +160,10 @@ export default function AuthPage() {
                                                                         <button
                                                                                     type="button"
                                                                                     onClick={handleAuth}
-                                                                                    className="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+                                                                                    className="w-full bg-blue-600 flex justify-center gap-2.5 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
                                                                         >
                                                                                     {isLogin ? 'Sign In' : 'Create Account'}
+                                                                                    {loader && <Loader2 className="animate-spin" />}
                                                                         </button>
                                                             </div>
                                                             <GoogleAuthBtn />

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { User, LogOut, LogIn } from 'lucide-react';
+import { User, LogOut, LogIn, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ const AccountMenu = () => {
             const navigate = useNavigate();
             const menuRef = useRef();
             const buttonRef = useRef();
+            const [isLoder, setIsLoader] = useState(false);
 
             // Close dropdown if clicked outside
             useEffect(() => {
@@ -33,14 +34,18 @@ const AccountMenu = () => {
 
 
             const logout = async () => {
+                        setIsLoader(true)
                         try {
                                     const { data } = await axiosInstance.get("/auth/logout")
                                     toast.success(data.message);
                                     navigate("/login");
                                     dispatch(setIsLogin(false));
-
+                                    setOpen(false)
+                                    setIsLoader(false);
                         } catch (error) {
                                     console.log("Logout error:", error)
+                                    setOpen(false)
+                                    setIsLoader(false);
                         }
             }
 
@@ -72,11 +77,12 @@ const AccountMenu = () => {
                                                                                     >
                                                                                                 <span className="text-lg">🚪</span>
                                                                                                 <span className="flex-1">Logout</span>
+                                                                                                {isLoder && <Loader2 className='animate-spin' />}
                                                                                                 <LogOut size={16} className="text-gray-400 group-hover:text-red-500 transition-colors" />
                                                                                     </button>
                                                                         ) : (
                                                                                     <button
-                                                                                                onClick={() => navigate('/login')}
+                                                                                                onClick={() => { navigate('/login'), setOpen(false) }}
                                                                                                 className="w-full px-5 py-3 text-sm text-left text-gray-700 hover:bg-gradient-to-r dark:text-gray-200 dark:hover:bg-gray-700 transition-all duration-200 flex items-center gap-3 font-medium"
                                                                                     >
                                                                                                 <span className="text-lg">🔑</span>
