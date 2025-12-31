@@ -46,7 +46,7 @@ export const login = asyncHandler(async (req, res) => {
                         sameSite: config.NODE_ENV === "production" ? "none" : "lax"
             })
 
-            res.status(200).json({ message: "login successfully", user: { id: user._id, name: user.name, email: user.email } });
+            res.status(200).json({ success: true, message: "login successfully", user: { id: user._id, name: user.name, email: user.email } });
 });
 
 export const isMe = asyncHandler(async (req, res) => {
